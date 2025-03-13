@@ -15,11 +15,23 @@
                 z-index:100;
 
             }
+            .logo{
+                top:0;
+                left:0;
+                padding:2px 15px;
+                margin-left: -2.5%;
+                z-index:1000;
+            }
+            .logo img{
+                display:auto;
+                height:60px;
+            }
             .dashboard-title{
                 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                 color:rgb(230, 200, 162);
                 font-size: x-large;
                 margin-right: auto;
+                margin-left: -1.5%;
             }
             button{
                 color:rgb(75, 75, 75);
@@ -35,6 +47,7 @@
         </style>
         <body>
             <div class = "dashboard-navigation">
+                <div class="logo"><img src="logo.png"></div>
                 <h1 class = "dashboard-title">dashi</h1>
                 <button id="add-note">Add Sticky Note</button>
                 <button id="add-note">Add Sticky Note</button>
