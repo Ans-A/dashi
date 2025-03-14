@@ -194,7 +194,7 @@
                     card.appendChild(header);
                     card.appendChild(body);
                     dashboard.appendChild(card);
-                    
+                    updateCardsList()
                     return card;
                     
 
@@ -212,6 +212,12 @@
                     const cardsList = document.getElementById('card-list');
                     cardsList.innerHTML='';
                     const cards = document.querySelectorAll('.card');
+                    cards.forEach(card=>{
+                        const li = document.createElement('li');
+                        const title = card.querySelector('.card-title').textContent;
+                        li.textContent = `${title} (${card.id})`;
+                        cardsList.appendChild(li);
+                    })
 
                 }
             </script>
