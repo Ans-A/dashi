@@ -53,7 +53,7 @@
                 position:fixed;
                 right:1.5%;
                 top:100px;
-                width: 100px;
+                width: 130px;
                 height: calc(100vh - 80px);
                 background-color: #214347;
                 border-radius: 16px;
@@ -65,18 +65,30 @@
                 list-style:none;
                 padding:0;
                 margin:0;
+                
             }
             #card-list li{
-                padding:10px;
-                margin:5px;
+                color:white;
+                padding:5px;
+                margin:2px;
                 background-color: #411c1c;
                 border-radius: 4px;
-                border:1px solid #ddd;
+                /* border:1px solid #ddd; */
                 cursor:pointer;
+                justify-content: center;
+                align-items: center;
             }
             #cards-list li:hover {
                 background-color: #000000;
-}
+            }           
+            #card-list-title {
+                display: flex;
+                color: #a8a8a8;
+                font-size: 20px;
+                margin-bottom: 10px;
+                justify-content: center;  
+                             
+            }
             .card {
                 background-color: rgb(212, 212, 212);
                 border-radius: 12px;
@@ -115,7 +127,7 @@
         <div class="bg">
             <div class = "dashboard-navigation">
                 <div id="card-list-panel">
-                    <h2>Cards List</h2>
+                    <h2 id="card-list-title">Cards List</h2>
                     <ul id="card-list"></ul>
                 </div>
                 <div class="logo"><img src="logo.png"></div>
