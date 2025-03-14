@@ -44,16 +44,71 @@
             button:hover{
                 opacity:0.7
             }
+
+            .card{
+                background-color: grey;
+                border-radius: 8px;
+                display:flex;
+                
+            }
         </style>
         <body>
             <div class = "dashboard-navigation">
                 <div class="logo"><img src="logo.png"></div>
                 <h1 class = "dashboard-title">dashi</h1>
                 <button id="add-note">Add Sticky Note</button>
-                <button id="add-note">Add Sticky Note</button>
-                <button id="add-note">Add Sticky Note</button>
-                <button id="add-note">Add Sticky Note</button>
+                <button id="add-todo">Add Sticky Note</button>
+                <button id="add-calendar">Add Sticky Note</button>
+                <button id="add-cancelled">Add Sticky Note</button>
             </div>
+            <div id="dashboard"></div>
+            <script>
+                dashboard=document.getElementById('dashboard')
+                document.getElementById('add-note').addEventListener('click',()=>addCard('note'));
+                let cardCounter = 0;
+                
+                function addCard(type){
+                    const card = document.createElement('div');
+                    const id = `card-${++cardCounter}`;
+                    card.id = id;
+                    card.className = `card ${type}`;
+                    card.style.width = '300px';
+                    card.style.height= type === 'calendar'? '350px': '200px';
+                    
+                    const offset = 15*(cardCounter%5);
+                    card.setAttribute('data-x', offset);
+                    card.setAttribute('data-y', offset);
+
+                    const header = document.createElement('div');
+                    header.className = 'card-header';
+                    const title = document.createElement('h1');
+                    title.className = 'card-title';
+                    title.textContent = getCardTitle(type);
+                    title.contentEditable = 'true';
+                    
+                    const actions = document.createElement('div');
+                    actions.className = 'card-actions';
+                    const body = document.createElement('div');
+                    body.className = 'card-body';
+
+                    card.appendChild(header);
+                    card.appendChild(body);
+                    dashboard.appendChild(card);
+                    
+                    return card;
+                    
+
+                }
+                function getCardTitle(type) {
+                    switch(type) {
+                    case 'note': return 'Note';
+                    case 'todo': return 'Todo List';
+                    case 'calendar': return 'Calendar';
+                    case 'forgotten': return 'Forgotten';
+                    case 'cancelled': return 'Cancelled';
+                    default: return 'Card';
+                }}
+            </script>
         </body>
     </head>
 </html>
