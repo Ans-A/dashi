@@ -69,20 +69,37 @@
                 
                 const position = { x: 0, y: 0 }
 
-                interact('.card').draggable({
-                listeners: {
-                    start (event) {
-                    console.log(event.type, event.target)
-                    },
-                    move (event) {
-                    position.x += event.dx
-                    position.y += event.dy
-
-                    event.target.style.transform =
-                        `translate(${position.x}px, ${position.y}px)`
-                    },
-                }
+                interact('.card')
+                 .draggable({
+                    listeners: { move: dragMoveListener } 
                 })
+                .resizable({
+                    edges: { top: true, left: true, bottom: true, right: true },
+                    listeners: {
+                    move: resizeMoveListener,
+                    },
+                });             
+                function dragMoveListener(event){
+                    const target = event.target;
+                    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    target.style.transform =
+                        `translate(${x}px, ${y}px)`;
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                }
+                
+                function resizeMoveListener(event) {
+                    const target = event.target;
+                    let x = (parseFloat(target.getAttribute('data-x'))||0)+event.deltaRect.left;
+                    let y = (parseFloat(target.getAttribute('data-y'))||0)+event.deltaRect.top;
+                    target.style.width = event.rect.width+'px';
+                    target.style.height = event.rect.height+'px';
+                    target.style.transform = `translate(${x}px, ${y}px)`;
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                }
+
                 function addCard(type){
                     const card = document.createElement('div');
                     const id = `card-${++cardCounter}`;
