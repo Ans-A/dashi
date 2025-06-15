@@ -164,10 +164,10 @@
         
         function resizeMoveListener(event) {
             const target = event.target;
-            let x = (parseFloat(target.getAttribute('data-x'))||0)+event.deltaRect.left;
-            let y = (parseFloat(target.getAttribute('data-y'))||0)+event.deltaRect.top;
-            target.style.width = event.rect.width+'px';
-            target.style.height = event.rect.height+'px';
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.deltaRect.left;
+            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.deltaRect.top;
+            target.style.width = `${event.rect.width}px`;
+            target.style.height = `${event.rect.height}px`;
             target.style.transform = `translate(${x}px, ${y}px)`;
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
