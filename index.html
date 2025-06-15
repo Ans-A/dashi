@@ -173,7 +173,7 @@
             target.setAttribute('data-y', y);
         }
 
-        function addCard(type){
+        const addCard = (type) => {
             const card = document.createElement('div');
             const id = `card-${++cardCounter}`;
             card.id = id;
