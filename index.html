@@ -1,238 +1,234 @@
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js"></script>
-        <style>
-            :root{
-                --primary-color: #411c1c;
-
-            }
-            body {
-                background-color: #0d1c20;
-            }
-            .dashboard-navigation{
-                padding:10px 20px;
-                border-radius: 2px;
-                background-color: rgb(18, 45, 53);
-                display: flex;
-                align-items: center;
-                z-index:100;
-
-            }
-            .logo{
-                top:0;
-                left:0;
-                padding:2px 15px;
-                margin-left: -2.5%;
-                z-index:1000;
-            }
-            .logo img{
-                display:auto;
-                height:60px;
-            }
-            .dashboard-title{
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                color:rgb(230, 200, 162);
-                font-size: x-large;
-                margin-right: auto;
-                margin-left: -1.5%;
-            }
-            button{
-                color:rgb(75, 75, 75);
-                border: none;
-                border-radius: 3px;
-                padding: 8px 16px;
-                margin-left: 15px;
-                font-weight: 100;
-            }
-            button:hover{
-                opacity:0.7
-            }
-            
-            #card-list-panel{
-                position:fixed;
-                right:1.5%;
-                top:100px;
-                width: 130px;
-                height: calc(100vh - 80px);
-                background-color: #214347;
-                border-radius: 16px;
-                /* border-left:1px solid #ffa264; */
-                padding:20px;
-                overflow-y:auto;
-            }
-            #card-list{
-                list-style:none;
-                padding:0;
-                margin:0;
-                
-            }
-            #card-list li{
-                color:white;
-                padding:5px;
-                margin:2px;
-                background-color: #411c1c;
-                border-radius: 4px;
-                /* border:1px solid #ddd; */
-                cursor:pointer;
-                justify-content: center;
-                align-items: center;
-            }
-            #cards-list li:hover {
-                background-color: #000000;
-            }           
-            #card-list-title {
-                display: flex;
-                color: #a8a8a8;
-                font-size: 20px;
-                margin-bottom: 10px;
-                justify-content: center;  
-                             
-            }
-            .card {
-                background-color: rgb(212, 212, 212);
-                border-radius: 12px;
-                display:flex;
-                position: absolute;
-                min-height: 100px;
-                min-width: 250px;
-                flex-direction: column;
-                transition: box-shadow 0.3s;
-                overflow: hidden;
-            }
-            
-            /* TODO: Style the card-header and card-title better */
-
-            .card-header {
-                background-color: rgb(255, 79, 79);
-                display: flex;
-                height: 15px;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 15px;
-                border-top-left-radius: 12px;
-                border-top-right-radius: 12px;
-            }
-            .card-title {
-                color:white;
-                font-size: 25px;
-                display: flex;
-                height: 10px;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 12px;
-            }
-        </style>
-        <body>
-        <div class="bg">
-            <div class = "dashboard-navigation">
-                <div id="card-list-panel">
-                    <h2 id="card-list-title">Cards List</h2>
-                    <ul id="card-list"></ul>
-                </div>
-                <div class="logo"><img src="logo.png"></div>
-                <h1 class = "dashboard-title">dashi</h1>
-                <button id="add-note">Add Sticky Note</button>
-                <button id="add-todo">Add Sticky Note</button>
-                <button id="add-calendar">Add Sticky Note</button>
-                <button id="add-cancelled">Add Sticky Note</button>
-            </div>
-            <div id="dashboard"></div>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js"></script>
+    <style>
+        :root{
+            --primary-color: #411c1c;
+        }
+        body {
+            background-color: #0d1c20;
+        }
+        .dashboard-navigation{
+            padding:10px 20px;
+            border-radius: 2px;
+            background-color: rgb(18, 45, 53);
+            display: flex;
+            align-items: center;
+            z-index:100;
+        }
+        .logo{
+            top:0;
+            left:0;
+            padding:2px 15px;
+            margin-left: -2.5%;
+            z-index:1000;
+        }
+        .logo img{
+            display:auto;
+            height:60px;
+        }
+        .dashboard-title{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color:rgb(230, 200, 162);
+            font-size: x-large;
+            margin-right: auto;
+            margin-left: -1.5%;
+        }
+        button{
+            color:rgb(75, 75, 75);
+            border: none;
+            border-radius: 3px;
+            padding: 8px 16px;
+            margin-left: 15px;
+            font-weight: 100;
+        }
+        button:hover{
+            opacity:0.7
+        }
+        
+        #card-list-panel{
+            position:fixed;
+            right:1.5%;
+            top:100px;
+            width: 130px;
+            height: calc(100vh - 80px);
+            background-color: #214347;
+            border-radius: 16px;
+            padding:20px;
+            overflow-y:auto;
+        }
+        #card-list{
+            list-style:none;
+            padding:0;
+            margin:0;
+        }
+        #card-list li{
+            color:white;
+            padding:5px;
+            margin:2px;
+            background-color: #411c1c;
+            border-radius: 4px;
+            cursor:pointer;
+            justify-content: center;
+            align-items: center;
+        }
+        #card-list li:hover {
+            background-color: #000000;
+        }           
+        #card-list-title {
+            display: flex;
+            color: #a8a8a8;
+            font-size: 20px;
+            margin-bottom: 10px;
+            justify-content: center;                 
+        }
+        .card {
+            background-color: rgb(212, 212, 212);
+            border-radius: 12px;
+            display:flex;
+            position: absolute;
+            min-height: 100px;
+            min-width: 250px;
+            flex-direction: column;
+            transition: box-shadow 0.3s;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: rgb(255, 79, 79);
+            display: flex;
+            height: 15px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .card-title {
+            color:white;
+            font-size: 25px;
+            display: flex;
+            height: 10px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="dashboard-navigation">
+            <div class="logo"><img src="logo.png"></div>
+            <h1 class="dashboard-title">dashi</h1>
+            <button id="add-note">Add Note</button>
+            <button id="add-todo">Add Todo</button>
+            <button id="add-calendar">Add Calendar</button>
+            <button id="add-cancelled">Add Cancelled</button>
         </div>
-            <script>
-                dashboard=document.getElementById('dashboard')
-                document.getElementById('add-note').addEventListener('click',()=>addCard('note'));
-                let cardCounter = 0;
-                
-                const position = { x: 0, y: 0 }
+        <div id="dashboard"></div>
+        <div id="card-list-panel">
+            <h2 id="card-list-title">Cards List</h2>
+            <ul id="card-list"></ul>
+        </div>
+    </div>
 
-                interact('.card')
-                 .draggable({
-                    listeners: { move: dragMoveListener } 
-                })
-                .resizable({
-                    edges: { top: true, left: true, bottom: true, right: true },
-                    listeners: {
+    <script>
+        dashboard = document.getElementById('dashboard');
+        let cardCounter = 0;
+        
+        document.getElementById('add-note').addEventListener('click', function() { addCard('note'); });
+        document.getElementById('add-todo').addEventListener('click', function() { addCard('todo'); });
+        document.getElementById('add-calendar').addEventListener('click', function() { addCard('calendar'); });
+        document.getElementById('add-cancelled').addEventListener('click', function() { addCard('cancelled'); });
+
+        interact('.card')
+            .draggable({
+                listeners: { move: dragMoveListener } 
+            })
+            .resizable({
+                edges: { top: true, left: true, bottom: true, right: true },
+                listeners: {
                     move: resizeMoveListener,
-                    },
-                });             
-                function dragMoveListener(event){
-                    const target = event.target;
-                    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-                    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-                    target.style.transform =
-                        `translate(${x}px, ${y}px)`;
-                    target.setAttribute('data-x', x);
-                    target.setAttribute('data-y', y);
-                }
-                
-                function resizeMoveListener(event) {
-                    const target = event.target;
-                    let x = (parseFloat(target.getAttribute('data-x'))||0)+event.deltaRect.left;
-                    let y = (parseFloat(target.getAttribute('data-y'))||0)+event.deltaRect.top;
-                    target.style.width = event.rect.width+'px';
-                    target.style.height = event.rect.height+'px';
-                    target.style.transform = `translate(${x}px, ${y}px)`;
-                    target.setAttribute('data-x', x);
-                    target.setAttribute('data-y', y);
-                }
+                },
+            });             
 
-                function addCard(type){
-                    const card = document.createElement('div');
-                    const id = `card-${++cardCounter}`;
-                    card.id = id;
-                    card.className = `card ${type}`;
-                    card.style.width = '300px';
-                    card.style.height= type === 'calendar'? '350px': '200px';
-                    
-                    const offset = 15*(cardCounter%5);
-                    card.setAttribute('data-x', offset);
-                    card.setAttribute('data-y', offset);
+        function dragMoveListener(event){
+            const target = event.target;
+            let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        }
+        
+        function resizeMoveListener(event) {
+            const target = event.target;
+            let x = (parseFloat(target.getAttribute('data-x'))||0)+event.deltaRect.left;
+            let y = (parseFloat(target.getAttribute('data-y'))||0)+event.deltaRect.top;
+            target.style.width = event.rect.width+'px';
+            target.style.height = event.rect.height+'px';
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        }
 
-                    const header = document.createElement('div');
-                    header.className = 'card-header';
-                    const title = document.createElement('h1');
-                    title.className = 'card-title';
-                    title.textContent = getCardTitle(type);
-                    title.contentEditable = 'true';
-                    
-                    const actions = document.createElement('div');
-                    actions.className = 'card-actions';
-                    const body = document.createElement('div');
-                    body.className = 'card-body';
-                    
-                    header.appendChild(title);
-                    header.appendChild(actions);
-                    card.appendChild(header);
-                    card.appendChild(body);
-                    dashboard.appendChild(card);
-                    updateCardsList()
-                    return card;
-                    
+        function addCard(type){
+            const card = document.createElement('div');
+            const id = `card-${++cardCounter}`;
+            card.id = id;
+            card.className = `card ${type}`;
+            card.style.width = '300px';
+            card.style.height = type === 'calendar' ? '350px' : '200px';
+            
+            const offset = 15 * (cardCounter % 5);
+            card.setAttribute('data-x', offset);
+            card.setAttribute('data-y', offset);
+            card.style.transform = `translate(${offset}px, ${offset}px)`;
 
-                }
-                function getCardTitle(type) {
-                    switch(type) {
-                    case 'note': return 'Note';
-                    case 'todo': return 'Todo List';
-                    case 'calendar': return 'Calendar';
-                    case 'forgotten': return 'Forgotten';
-                    case 'cancelled': return 'Cancelled';
-                    default: return 'Card';
-                }}
-                function updateCardsList(){
-                    const cardsList = document.getElementById('card-list');
-                    cardsList.innerHTML='';
-                    const cards = document.querySelectorAll('.card');
-                    cards.forEach(card=>{
-                        const li = document.createElement('li');
-                        const title = card.querySelector('.card-title').textContent;
-                        li.textContent = `${title} (${card.id})`;
-                        cardsList.appendChild(li);
-                    })
+            const header = document.createElement('div');
+            header.className = 'card-header';
+            const title = document.createElement('h1');
+            title.className = 'card-title';
+            title.textContent = getCardTitle(type);
+            title.contentEditable = 'true';
+            
+            const actions = document.createElement('div');
+            actions.className = 'card-actions';
+            const body = document.createElement('div');
+            body.className = 'card-body';
+            
+            header.appendChild(title);
+            header.appendChild(actions);
+            card.appendChild(header);
+            card.appendChild(body);
+            dashboard.appendChild(card);
+            updateCardsList();
+            return card;
+        }
 
-                }
-            </script>
-        </body>
-    </head>
+        function getCardTitle(type) {
+            switch(type) {
+                case 'note': return 'Note';
+                case 'todo': return 'Todo List';
+                case 'calendar': return 'Calendar';
+                case 'forgotten': return 'Forgotten';
+                case 'cancelled': return 'Cancelled';
+                default: return 'Card';
+            }
+        }
+
+        function updateCardsList(){
+            const cardsList = document.getElementById('card-list');
+            cardsList.innerHTML = '';
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const li = document.createElement('li');
+                const title = card.querySelector('.card-title').textContent;
+                li.textContent = `${title} (${card.id})`;
+                cardsList.appendChild(li);
+            });
+        }
+    </script>
+</body>
 </html>
