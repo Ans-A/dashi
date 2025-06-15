@@ -218,7 +218,12 @@
         const updateCardsList = () => {
             const cardsList = document.getElementById('card-list');
             cardsList.innerHTML = '';
-            const cards = [...document.querySelectorAll('.card')];
+            const cards = [...document.querySelectorAll('.card')]
+                .map(card => ({
+                    element: card,
+                    title: card.querySelector('.card-title').textContent,
+                    id: card.id
+                }));
             cards.forEach((card, index) => {
                 const li = document.createElement('li');
                 const title = card.querySelector('.card-title').textContent;
