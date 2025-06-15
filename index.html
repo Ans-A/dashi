@@ -148,7 +148,11 @@
 
         interact('.card')
             .draggable({
-                listeners: { move: dragMoveListener } 
+                listeners: { 
+                    move: dragMoveListener,
+                    start: event => event.target.style.zIndex = 1000,
+                    end: event => event.target.style.zIndex = 'auto'
+                } 
             })
             .resizable({
                 edges: { top: true, left: true, bottom: true, right: true },
