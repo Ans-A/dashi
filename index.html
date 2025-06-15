@@ -137,10 +137,10 @@
         dashboard = document.getElementById('dashboard');
         let cardCounter = 0;
         
-        document.getElementById('add-note').addEventListener('click', function() { addCard('note'); });
-        document.getElementById('add-todo').addEventListener('click', function() { addCard('todo'); });
-        document.getElementById('add-calendar').addEventListener('click', function() { addCard('calendar'); });
-        document.getElementById('add-cancelled').addEventListener('click', function() { addCard('cancelled'); });
+        document.getElementById('add-note').addEventListener('click', () => addCard('note'));
+        document.getElementById('add-todo').addEventListener('click', () => addCard('todo'));
+        document.getElementById('add-calendar').addEventListener('click', () => addCard('calendar'));
+        document.getElementById('add-cancelled').addEventListener('click', () => addCard('cancelled'));
 
         interact('.card')
             .draggable({
