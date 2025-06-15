@@ -193,7 +193,22 @@
             target.setAttribute('data-y', y);
         }
 
-        const deleteCard = (cardId) => {
+        const duplicateCard = cardId => {
+            const originalCard = document.getElementById(cardId);
+            if (!originalCard) return;
+            
+            const type = originalCard.classList[1];
+            const newCard = addCard(type);
+            
+            const originalTitle = originalCard.querySelector('.card-title').textContent;
+            newCard.querySelector('.card-title').textContent = `${originalTitle} (Copy)`;
+            
+            const originalX = parseFloat(originalCard.getAttribute('data-x')) || 0;
+            const originalY = parseFloat(originalCard.getAttribute('data-y')) || 0;
+            newCard.setAttribute('data-x', originalX + 20);
+            newCard.setAttribute('data-y', originalY + 20);
+            newCard.style.transform = `translate(${originalX + 20}px, ${originalY + 20}px)`;
+        }
             if (confirm(`Delete ${cardId}?`)) {
                 const card = document.getElementById(cardId);
                 card?.remove();
