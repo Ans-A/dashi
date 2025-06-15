@@ -229,6 +229,17 @@
                 cardsList.appendChild(li);
             });
         }
+        const createCardElement = (type, id, offset) => {
+            const card = document.createElement('div');
+            card.id = id;
+            card.className = `card ${type}`;
+            card.style.width = '300px';
+            card.style.height = type === 'calendar' ? '350px' : '200px';
+            card.setAttribute('data-x', offset);
+            card.setAttribute('data-y', offset);
+            card.style.transform = `translate(${offset}px, ${offset}px)`;
+            return card;
+        }
     </script>
 </body>
 </html>
