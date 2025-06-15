@@ -203,16 +203,13 @@
             return card;
         }
 
-        const getCardTitle = type => {
-            switch(type) {
-                case 'note': return 'Note';
-                case 'todo': return 'Todo List';
-                case 'calendar': return 'Calendar';
-                case 'forgotten': return 'Forgotten';
-                case 'cancelled': return 'Cancelled';
-                default: return 'Card';
-            }
-        }
+        const getCardTitle = type => ({
+            'note': 'Note',
+            'todo': 'Todo List', 
+            'calendar': 'Calendar',
+            'forgotten': 'Forgotten',
+            'cancelled': 'Cancelled'
+        })[type] || 'Card';
 
         const updateCardsList = () => {
             const cardsList = document.getElementById('card-list');
