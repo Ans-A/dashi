@@ -114,6 +114,18 @@
             align-items: center;
             padding: 12px 12px;
         }
+        .card-delete {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .card-delete:hover {
+            background-color: #cc3333;
+        }
     </style>
 </head>
 <body>
@@ -181,6 +193,14 @@
             target.setAttribute('data-y', y);
         }
 
+        const deleteCard = (cardId) => {
+            if (confirm(`Delete ${cardId}?`)) {
+                const card = document.getElementById(cardId);
+                card?.remove();
+                updateCardsList();
+            }
+        }
+
         const addCard = (type) => {
             const id = `card-${++cardCounter}`;
             const offset = 15 * (cardCounter % 5);
@@ -193,8 +213,14 @@
             title.textContent = getCardTitle(type);
             title.contentEditable = 'true';
             
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'card-delete';
+            deleteBtn.textContent = '×';
+            deleteBtn.onclick = () => deleteCard(id);
+            
             const actions = document.createElement('div');
             actions.className = 'card-actions';
+            actions.appendChild(deleteBtn);
             const body = document.createElement('div');
             body.className = 'card-body';
             
@@ -226,11 +252,11 @@
                 }));
             cards.forEach((card, index) => {
                 const li = document.createElement('li');
-                const title = card.querySelector('.card-title').textContent;
-                li.textContent = `${index + 1}. ${title} (${card.id})`;
+                li.textContent = `${index + 1}. ${card.title} (${card.id})`;
                 cardsList.appendChild(li);
             });
         }
+
         const createCardElement = (type, id, offset) => {
             const card = document.createElement('div');
             card.id = id;
