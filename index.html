@@ -137,10 +137,14 @@
         const dashboard = document.getElementById('dashboard');
         let cardCounter = 0;
         
-        document.getElementById('add-note').addEventListener('click', () => addCard('note'));
-        document.getElementById('add-todo').addEventListener('click', () => addCard('todo'));
-        document.getElementById('add-calendar').addEventListener('click', () => addCard('calendar'));
-        document.getElementById('add-cancelled').addEventListener('click', () => addCard('cancelled'));
+        const cardTypes = ['note', 'todo', 'calendar', 'cancelled'];
+        
+        cardTypes.forEach(type => {
+            const button = document.getElementById(`add-${type}`);
+            if (button) {
+                button.addEventListener('click', () => addCard(type));
+            }
+        });
 
         interact('.card')
             .draggable({
