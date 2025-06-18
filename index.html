@@ -193,6 +193,16 @@
             target.setAttribute('data-y', y);
         }
 
+        const deleteCard = (cardId) => {
+            if (confirm(`Delete ${cardId}?`)) {
+                const card = document.getElementById(cardId);
+                if (card) {
+                    card.remove();
+                    updateCardsList();
+                }
+            }
+        }
+
         const duplicateCard = cardId => {
             const originalCard = document.getElementById(cardId);
             if (!originalCard) return;
@@ -209,10 +219,77 @@
             newCard.setAttribute('data-y', originalY + 20);
             newCard.style.transform = `translate(${originalX + 20}px, ${originalY + 20}px)`;
         }
-            if (confirm(`Delete ${cardId}?`)) {
-                const card = document.getElementById(cardId);
-                card?.remove();
+
+        const focusCard = (cardId) => {
+            const card = document.getElementById(cardId);
+            if (!card) return;
+            
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.boxShadow = '0 0 20px #ff6b6b';
+            setTimeout(() => {
+                card.style.boxShadow = '';
+            }, 2000);
+        }
+
+        const saveCardsToLocalStorage = async () => {
+            const cards = [...document.querySelectorAll('.card')].map(card => ({
+                id: card.id,
+                type: card.classList[1],
+                title: card.querySelector('.card-title').textContent,
+                x: parseFloat(card.getAttribute('data-x')) || 0,
+                y: parseFloat(card.getAttribute('data-y')) || 0,
+                width: card.style.width,
+                height: card.style.height
+            }));
+            
+            localStorage.setItem('dashboardCards', JSON.stringify(cards));
+            console.log('Cards saved:', cards.length);
+        }
+
+        const loadCardsFromLocalStorage = () => {
+            const savedCards = localStorage.getItem('dashboardCards');
+            if (!savedCards) return;
+            
+            try {
+                const cards = JSON.parse(savedCards);
+                cards.forEach(cardData => {
+                    const { id, type, title, x, y, width, height } = cardData;
+                    cardCounter = Math.max(cardCounter, parseInt(id.replace('card-', '')) || 0);
+                    
+                    const card = createCardElement(type, id, 0);
+                    card.style.width = width;
+                    card.style.height = height;
+                    card.setAttribute('data-x', x);
+                    card.setAttribute('data-y', y);
+                    card.style.transform = `translate(${x}px, ${y}px)`;
+                    
+                    const header = document.createElement('div');
+                    header.className = 'card-header';
+                    const titleEl = document.createElement('h1');
+                    titleEl.className = 'card-title';
+                    titleEl.textContent = title;
+                    titleEl.contentEditable = 'true';
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'card-delete';
+                    deleteBtn.textContent = '×';
+                    deleteBtn.onclick = () => deleteCard(id);
+                    
+                    const actions = document.createElement('div');
+                    actions.className = 'card-actions';
+                    actions.appendChild(deleteBtn);
+                    const body = document.createElement('div');
+                    body.className = 'card-body';
+                    
+                    header.appendChild(titleEl);
+                    header.appendChild(actions);
+                    card.appendChild(header);
+                    card.appendChild(body);
+                    dashboard.appendChild(card);
+                });
                 updateCardsList();
+            } catch (e) {
+                console.error('Failed to load cards:', e);
             }
         }
 
@@ -283,6 +360,8 @@
             card.style.transform = `translate(${offset}px, ${offset}px)`;
             return card;
         }
+
+        loadCardsFromLocalStorage();
     </script>
 </body>
 </html>
